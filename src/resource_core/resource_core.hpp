@@ -55,3 +55,4 @@ namespace lab4::resource{
         std::unordered_map<std::string, std::weak_ptr<FileHandle>> cache_;
        
 }
+}
