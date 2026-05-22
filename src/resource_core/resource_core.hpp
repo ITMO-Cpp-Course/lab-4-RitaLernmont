@@ -23,7 +23,9 @@ class FileHandle
     ~FileHandle();
 
     FileHandle(const FileHandle&) = delete;
+    FileHandle& operator=(const FileHandle&) = delete;
 
+    FileHandle(FileHandle&& other) noexcept;
     FileHandle& operator=(FileHandle&& other) noexcept;
 
     void write(const std::string& data);

@@ -134,16 +134,16 @@ std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& fil
     auto it = cache_.find(filepath);
     if (it != cache_.end())
     {
+        auto ptr = it->second.lock();
         if (ptr)
         {
-            auto ptr = it->second.lock();
             return ptr;
         }
     }
 
-    auto ptr = std::make_shared<FileHandle>(filepath);
-    cache_[filepath] = ptr;
-    return ptr;
+    auto new_ptr = std::make_shared<FileHandle>(filepath);
+    cache_[filepath] = new_ptr;
+    return new_ptr;
 }
 
 void ResourceManager::evict(const std::string& filepath)
