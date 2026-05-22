@@ -1,4 +1,4 @@
-#include "src/resource_core/resource_core.hpp"
+#include "resource_core.hpp"
 #include <catch2/catch_all.hpp>
 #include <cstdio>
 #include <thread>
