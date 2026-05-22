@@ -67,8 +67,9 @@ TEST_CASE("ResourceManager returns same object for same file")
 
 TEST_CASE("ResourceManager cache cleanup")
 {
-    std::string path = temp_file();
     auto& rm = ResourceManager::instance();
+    rm.cleanup();
+    std::string path = temp_file();
 
     {
         auto r = rm.get_resource(path);
