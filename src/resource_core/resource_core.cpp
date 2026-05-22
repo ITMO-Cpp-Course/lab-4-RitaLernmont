@@ -52,7 +52,7 @@ struct FileHandle::Impl
 
 FileHandle::FileHandle(const std::string& filepath) : pimpl_(std::make_unique<Impl>(filepath)) {}
 
-FileHandle::~FileHandle = default;
+FileHandle::~FileHandle() = default;
 
 FileHandle::FileHandle(FileHandle&& other) noexcept : pimpl_(std::move(other.pimpl_)) {}
 
@@ -83,13 +83,13 @@ void FileHandle::write(const std::string& data)
 
 std::string FileHandle::read()
 {
-    if (!pimpl_ || !pimpl_->read)
+    if (!pimpl_ || !pimpl_->open)
     {
         throw ResourceError("FileHandle is not open");
     }
 
     pimpl_->stream.clear();
-    pimpl_->stream.seekp(0, std::ios::end);
+    pimpl_->stream.seekp(0, std::ios::beg);
 
     std::stringstream buffer;
     buffer << pimpl_->stream.rdbuf();
@@ -136,6 +136,7 @@ std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& fil
     {
         if (ptr)
         {
+            auto ptr = it->second.lock();
             return ptr;
         }
     }
@@ -154,7 +155,7 @@ void ResourceManager::evict(const std::string& filepath)
 void ResourceManager::cleanup()
 {
     std::lock_guard<std::mutex> lock(mutex_);
-    for (auto it = cache_.begin(); it = != cache_.end();)
+    for (auto it = cache_.begin(); it != cache_.end();)
     {
         if (it->second.expired())
         {
