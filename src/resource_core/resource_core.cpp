@@ -139,6 +139,7 @@ std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& fil
         {
             return ptr;
         }
+        cache_.erase(it);
     }
 
     auto new_ptr = std::make_shared<FileHandle>(filepath);
