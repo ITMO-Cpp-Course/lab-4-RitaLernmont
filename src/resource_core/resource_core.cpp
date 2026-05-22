@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-using namespace lab4::resource
+using namespace lab4::resource;
 {
 
     ResourceError::ResourceError(const std::string& message) : std::runtime_error(message) {}

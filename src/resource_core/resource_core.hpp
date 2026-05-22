@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <mutex>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 
@@ -54,5 +55,5 @@ class ResourceManager
 
     mutable std::mutex mutex_;
     std::unordered_map<std::string, std::weak_ptr<FileHandle>> cache_;
-}
+};
 } // namespace lab4::resource
