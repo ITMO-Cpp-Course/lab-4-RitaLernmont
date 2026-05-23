@@ -1,3 +1,4 @@
+#include "resource_common.hpp"
 #include "resource_manager.hpp"
 #include <catch2/catch_all.hpp>
 #include <cstdio>

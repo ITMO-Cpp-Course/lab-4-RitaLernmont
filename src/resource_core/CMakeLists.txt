@@ -1,5 +1,7 @@
 add_library(resource_core STATIC
-    resource_core.cpp
+    file_handle.cpp
+    resource_error.cpp
+    resource_manager.cpp
 )
 
 target_link_libraries(resource_core PRIVATE project_warnings)

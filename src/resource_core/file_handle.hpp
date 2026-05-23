@@ -6,11 +6,11 @@
 class FileHandle
 {
   public:
-    explicit FileHandle(const std::string& filepath);
+    explicit FileHandle(const std::string& filepath); // запрещает неявные
     ~FileHandle();
 
-    FileHandle(const FileHandle&) = delete;            // запрещает копировать
-    FileHandle& operator=(const FileHandle&) = delete; // запрещает копировать
+    FileHandle(const FileHandle&) = delete; // запрещает копировать (конструктор, который создает новый объект)
+    FileHandle& operator=(const FileHandle&) = delete; // запрещает копировать (оператор, который меняет существующий)
 
     FileHandle(FileHandle&& other) noexcept;            // дает перемещать
     FileHandle& operator=(FileHandle&& other) noexcept; // дает перемещать
