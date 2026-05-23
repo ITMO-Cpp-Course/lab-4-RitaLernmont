@@ -1,6 +1,7 @@
 #include "resource_manager.hpp"
 #include "resource_common.hpp"
 #include <fstream>
+#include <mutex>
 #include <sstream>
 
 using namespace lab4::resource;
@@ -13,6 +14,7 @@ ResourceManager& ResourceManager::instance()
 
 std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& filepath)
 {
+    std::lock_guard<std::mutex> lock(mutex_);
 
     auto it = cache_.find(filepath);
     if (it != cache_.end())
