@@ -11,6 +11,7 @@ namespace lab4::resource
 class ResourceManager
 {
   public:
+    ~ResourceManager() = default;
     static ResourceManager& instance();
 
     std::shared_ptr<FileHandle> get_resource(const std::string& filepath);
@@ -20,7 +21,6 @@ class ResourceManager
 
   private:
     ResourceManager() = default;
-    ~ResourceManager() = default;
 
     std::unordered_map<std::string, std::weak_ptr<FileHandle>> cache_;
 };
