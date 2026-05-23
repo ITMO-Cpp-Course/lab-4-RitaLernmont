@@ -1,4 +1,4 @@
-#include "resource_core.hpp"
+#include "resource_manager.hpp"
 #include <fstream>
 #include <sstream>
 
@@ -129,7 +129,6 @@ ResourceManager& ResourceManager::instance()
 
 std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& filepath)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
 
     auto it = cache_.find(filepath);
     if (it != cache_.end())
@@ -149,13 +148,11 @@ std::shared_ptr<FileHandle> ResourceManager::get_resource(const std::string& fil
 
 void ResourceManager::evict(const std::string& filepath)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     cache_.erase(filepath);
 }
 
 void ResourceManager::cleanup()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     for (auto it = cache_.begin(); it != cache_.end();)
     {
         if (it->second.expired())
@@ -171,6 +168,5 @@ void ResourceManager::cleanup()
 
 size_t ResourceManager::cache_size() const
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     return cache_.size();
 }
