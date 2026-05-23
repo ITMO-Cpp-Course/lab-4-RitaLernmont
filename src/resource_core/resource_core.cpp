@@ -1,4 +1,5 @@
 #include "resource_manager.hpp"
+#include "resourceerror.hpp"
 #include <fstream>
 #include <sstream>
 
